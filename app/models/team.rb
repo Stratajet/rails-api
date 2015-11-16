@@ -29,7 +29,7 @@ class Team < ActiveRecord::Base
   has_many :entries
   has_many :jobs, as: :resource
 
-  after_save :queue_events
+  #after_save :queue_events
 
   before_validation(on: :create) do
     self.auth_token = SecureRandom.hex
@@ -45,16 +45,16 @@ class Team < ActiveRecord::Base
   end
 
   def send_to_slack_client(data, path)
-    uri = URI(bot_url)
-    http = Net::HTTP.new(uri.host)
+    # uri = URI(bot_url)
+    # http = Net::HTTP.new(uri.host)
 
-    request = Net::HTTP::Post.new(path, {'Content-Type' =>'application/json'})
-    request.body = data.to_json
+    # request = Net::HTTP::Post.new(path, {'Content-Type' =>'application/json'})
+    # request.body = data.to_json
 
-    puts "request =============================="
-    puts request.body
+    # puts "request =============================="
+    # puts request.body
 
-    response = http.request(request)
+    # response = http.request(request)
   end
 
   def announce(channel = 'general', data = {}, template)
@@ -112,10 +112,10 @@ class Team < ActiveRecord::Base
 
   def summary
     # Deliver email to team with summary
-    current_scrum.deliver_summary_email
+    # current_scrum.deliver_summary_email
 
     # Announce summary via Slack
-    announce_summary
+    #announce_summary
   end
 
   def next_run_for_event(event_name)
